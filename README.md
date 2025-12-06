@@ -1,18 +1,22 @@
 # CPU Scheduling Visualizer 🖥️⚡
 
-A beautiful, interactive web application for visualizing and comparing CPU scheduling algorithms. Built with Next.js, React, and modern UI libraries.
+A beautiful, interactive web and desktop application for visualizing and comparing CPU scheduling algorithms. Built with Next.js, React, Electron, and modern UI libraries.
 
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.5-black)
 ![React](https://img.shields.io/badge/React-18-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38bdf8)
+![Electron](https://img.shields.io/badge/Electron-39.2.6-47848F)
 
 ---
 
 ## ✨ Features
 
+- 🖥️ **Desktop App** - Run as a native application with Electron
 - 🎨 **Beautiful UI** - Modern gradient designs with smooth animations
 - 📊 **6 Scheduling Algorithms** - Complete implementations with visualizations
+- 🎬 **Process State Visualization** - Animated queues showing processes moving through states
+- ⚡ **Sample Test Cases** - Quick-load predefined processes for instant demos
 - 📈 **Interactive Gantt Charts** - Color-coded process execution timeline
 - 📉 **Performance Comparison** - Compare algorithms side-by-side
 - 📄 **PDF Export** - Generate comprehensive reports
@@ -195,8 +199,8 @@ A beautiful, interactive web application for visualizing and comparing CPU sched
 
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/yourusername/CPU-Scheduling-Visualizer.git
-cd CPU-Scheduling-Visualizer
+git clone https://github.com/abhishek112007/operatingsystem.git
+cd operatingsystem
 ```
 
 2. **Install dependencies**:
@@ -221,6 +225,27 @@ npm run build
 npm start
 ```
 
+### Run as Desktop App
+
+**Development Mode:**
+```bash
+npm run electron-dev
+```
+
+**Build Desktop Installers:**
+```bash
+# Windows
+npm run electron-build-win
+
+# macOS
+npm run electron-build-mac
+
+# Linux
+npm run electron-build-linux
+```
+
+Installers will be created in the `dist/` folder.
+
 ---
 
 ## 📖 How to Use
@@ -229,14 +254,25 @@ npm start
 - Choose from 6 available scheduling algorithms from the dropdown
 
 ### Step 2: Add Processes
+
+**Option A - Manual Entry:**
 - **Arrival Time**: When the process arrives in the ready queue
 - **Burst Time**: CPU time required by the process
 - **Priority**: Required for priority scheduling algorithms (lower number = higher priority)
 - **Time Quantum**: Required for Round Robin (typically 2-4 units)
 
+**Option B - Load Sample Test Case:**
+- Click **"Load Sample Test Case"** button (✨ icon)
+- Instantly loads 5 predefined processes optimized for the selected algorithm
+- Perfect for quick demonstrations and testing
+
 ### Step 3: Run Simulation
 - Click **"Run Algorithm"** button
 - View the animated Gantt chart
+- **Watch Process State Visualization**:
+  - See processes move through **Waiting → Ready → Running → Completed** states
+  - Play/Pause animation with speed control (0.5x - 4x)
+  - Real-time tracking of which processes are in which queue
 - Check the output process table with metrics
 - Review average turnaround time and waiting time
 
@@ -302,6 +338,12 @@ AWT = (Sum of all WT) / Number of processes
 ### **State Management**
 - **Recoil** - Global state management
 
+### **Desktop App**
+- **Electron 39.2.6** - Cross-platform desktop framework
+- **electron-builder** - Build and package desktop installers
+- **concurrently** - Run dev server and Electron simultaneously
+- **wait-on** - Wait for server before launching Electron
+
 ### **Export**
 - **jsPDF** - PDF generation
 - **jsPDF-AutoTable** - Table generation in PDFs
@@ -319,10 +361,11 @@ CPU-Scheduling-Visualizer/
 ├── app/
 │   ├── (components)/          # React components
 │   │   ├── ganttChart.tsx     # Gantt chart visualization
+│   │   ├── processQueueVisualizer.tsx  # Animated state visualization
 │   │   ├── inputProcessTable.tsx
 │   │   ├── lineChart.tsx      # Comparison charts
 │   │   ├── outputProcessTable.tsx
-│   │   ├── processInserter.tsx
+│   │   ├── processInserter.tsx  # Includes sample test cases
 │   │   └── selectAlgorithm.tsx
 │   ├── (lib)/                 # Utilities
 │   │   └── recoilContextProvider.tsx
@@ -355,13 +398,16 @@ CPU-Scheduling-Visualizer/
 │   └── page.tsx               # Home page (redirects to /algorithms)
 ├── components/
 │   └── ui/                    # Reusable UI components
+├── electron/
+│   ├── main.js                # Electron main process
+│   └── preload.js             # Preload script for security
 ├── lib/
 │   └── utils.ts               # Utility functions
 ├── public/                    # Static assets
-├── next.config.js             # Next.js configuration
+├── next.config.js             # Next.js configuration (with static export)
 ├── tailwind.config.ts         # Tailwind configuration
 ├── tsconfig.json              # TypeScript configuration
-└── package.json               # Dependencies
+└── package.json               # Dependencies + Electron scripts
 ```
 
 ---
@@ -386,6 +432,36 @@ Each process is assigned a unique gradient color:
 ---
 
 ## 🎯 Key Features Explained
+
+### **🎬 Process State Visualization**
+Animated visualization showing how processes move through different states:
+- **Waiting Queue** (Gray) - Processes that haven't arrived yet
+- **Ready Queue** (Blue) - Processes waiting for CPU
+- **CPU/Running** (Green) - Currently executing process with rotating CPU icon
+- **Completed** (Green/Faded) - Finished processes with checkmark
+
+**Controls:**
+- ▶️ **Play/Pause** - Control the animation
+- 🔄 **Reset** - Start from beginning
+- ⚡ **Speed Control** - 0.5x, 1x, 2x, 4x speeds
+- 🕐 **Time Display** - Current simulation time
+
+### **✨ Sample Test Cases**
+Each algorithm comes with pre-configured test data:
+- **FCFS**: 5 processes with varied arrival and burst times
+- **SJF (NP/P)**: Optimized for shortest job demonstration
+- **Priority (NP/P)**: Processes with different priority levels
+- **Round Robin**: Ideal for demonstrating time quantum effects
+
+Click the sparkles button (✨) to load instantly!
+
+### **🖥️ Desktop Application**
+Run as a native desktop app with:
+- No browser required
+- Faster performance
+- Native window controls
+- Clean interface without browser UI
+- Cross-platform support (Windows, macOS, Linux)
 
 ### **Auto-Refresh Comparison**
 After running any algorithm, the comparison chart automatically updates, eliminating the need to manually click "Compare Similar Algorithms".
