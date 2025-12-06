@@ -6,6 +6,7 @@ import SelectAlgorithm from "../(components)/selectAlgorithm";
 import ProcessInserter from "../(components)/processInserter";
 import InputProcessTable from "../(components)/inputProcessTable";
 import OutputProcessTable from "../(components)/outputProcessTable";
+import ProcessQueueVisualizer from "../(components)/processQueueVisualizer";
 import { algorithmState, lineChartState } from "../(recoil)/store";
 import { processesState } from "../(recoil)/store";
 import { timeQuantumState } from "../(recoil)/store";
@@ -538,6 +539,7 @@ export default function Algorithm() {
             <OutputProcessTable />
             <br />
             <GanttChart />
+            <ProcessQueueVisualizer />
             <div className="p-5">
               <div className="flex justify-center mb-4">
                 <button
