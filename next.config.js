@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Keeping middleware active requires disabling static export
+  output: 'export',
   images: {
     unoptimized: true,
   },

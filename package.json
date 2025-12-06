@@ -2,11 +2,20 @@
   "name": "cpu-scheduling-visualizer",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.js",
+  "homepage": "./",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "electron": "wait-on http://localhost:3000 && electron .",
+    "electron-dev": "concurrently \"npm run dev\" \"npm run electron\"",
+    "electron-build": "npm run export && electron-builder",
+    "electron-build-win": "npm run export && electron-builder --win",
+    "electron-build-mac": "npm run export && electron-builder --mac",
+    "electron-build-linux": "npm run export && electron-builder --linux"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.1.1",
@@ -33,10 +42,40 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.2.6",
+    "electron-builder": "^26.0.12",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^9.0.3"
+  },
+  "build": {
+    "appId": "com.cpuscheduler.visualizer",
+    "productName": "CPU Scheduling Visualizer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "electron/**/*",
+      "public/**/*"
+    ],
+    "win": {
+      "target": ["nsis"],
+      "icon": "public/favicon.ico"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "public/favicon.icns"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "public/favicon.png",
+      "category": "Education"
+    }
   }
 }
