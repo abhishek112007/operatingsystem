@@ -534,7 +534,12 @@ Contributions are welcome! Here's how you can help:
 
 ## 📝 License
 
-This project is open source and available under the MIT License.
+This project is dual-licensed under:
+
+- **MIT License** - See [LICENSE](LICENSE) for details
+- **Apache License 2.0** - See [LICENSE-APACHE](LICENSE-APACHE) for details
+
+You may choose either license to govern your use of this software.
 
 ---
 
