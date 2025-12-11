@@ -199,8 +199,8 @@ A beautiful, interactive web and desktop application for visualizing and compari
 
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/abhishek112007/operatingsystem.git
-cd operatingsystem
+git clone https://github.com/abhishek112007/os-scheduling-algorithm-simulator
+cd os-scheduling-algorithm-simulator
 ```
 
 2. **Install dependencies**:
